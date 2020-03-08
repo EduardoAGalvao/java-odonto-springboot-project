@@ -1,6 +1,5 @@
 package br.senai.sp.odonto.resource;
 
-<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,23 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.senai.sp.odonto.dto.UserAccountCredential;
 import br.senai.sp.odonto.model.User;
-=======
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import br.senai.sp.odonto.dto.UserAccountCredential;
->>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 import br.senai.sp.odonto.repository.UserRepository;
 import br.senai.sp.odonto.security.JwtAuthenticationService;
 
 @RestController
-<<<<<<< HEAD
 @RequestMapping("/odonto")
-=======
->>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 public class UserAuthentication {
 	
 	//Busca os dados do usuário no banco
@@ -49,19 +36,14 @@ public class UserAuthentication {
 	private AuthenticationManager authenticationManager;
 	
 	//Método para logar
-<<<<<<< HEAD
 	//Aqui será o caminho obrigatório que o usuário deverá seguir quando acessar
 	@PostMapping("/auth/login")
 	public ResponseEntity<Map<Object, Object>> signIn(@RequestBody UserAccountCredential credential) {
-=======
-	public void signIn(@RequestBody UserAccountCredential credential) {
->>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 		
 		UsernamePasswordAuthenticationToken userCredential = new UsernamePasswordAuthenticationToken(credential.getUsername(), credential.getPassword());
 		
 		authenticationManager.authenticate(userCredential);
 		
-<<<<<<< HEAD
 		List<String> roles = new ArrayList<String>();
 		
 		//Bloco para adquirir as funções do usuário
@@ -79,8 +61,6 @@ public class UserAuthentication {
 		
 		return ResponseEntity.ok(jsonResponse);
 		
-=======
->>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 	}
 
 }

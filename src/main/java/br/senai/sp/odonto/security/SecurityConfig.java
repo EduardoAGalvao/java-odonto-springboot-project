@@ -1,21 +1,14 @@
 package br.senai.sp.odonto.security;
 
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-=======
-import org.springframework.context.annotation.Configuration;
->>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-<<<<<<< HEAD
 import org.springframework.security.config.http.SessionCreationPolicy;
-=======
->>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 //@Configuration -> Anotação que classifica essa classe como componente de configuração
@@ -27,18 +20,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
-<<<<<<< HEAD
 	@Autowired
 	private JwtAuthenticationService jwtAuthenticationService;
 	private UserDetailServiceImpl userDetailServiceImpl;
 
-=======
->>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 	//Método utilizado para a configuração da segurança na requisição HTTP
 	//Reescrevendo o método original, retirando o formulário para autenticação que aparece no HTTP
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-<<<<<<< HEAD
 		
 		//Comentado em 06/03, pois agora a autenticação será feita utilizando JWT
 //		http
@@ -65,15 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers(HttpMethod.DELETE, "/odonto/dentistas/**").hasRole("ADMIN")
 			.anyRequest().authenticated()
 			.and().apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
-=======
-		http
-			.authorizeRequests()
-			.anyRequest()
-			.authenticated()
-			.and().httpBasic()
-			.and().csrf().disable();
-		//CSRF -> cross-site request forgery, desabilitado
->>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 	}
 	
 	//Método utilizado para a configuração da autenticação
@@ -86,7 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
-<<<<<<< HEAD
 		//Refatorado em 06/03 - agora realizando autenticação pelo JWT
 //		auth
 //			.inMemoryAuthentication()
@@ -108,26 +87,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //			.roles("PACIENTE");
 		
 		auth.userDetailsService(userDetailServiceImpl).passwordEncoder(encoder);
-=======
-		auth
-			.inMemoryAuthentication()
-			.passwordEncoder(encoder)
-			.withUser("edu")
-			.password(encoder.encode("123"))
-			.roles("USER")
-			.and()
-			.withUser("admin")
-			.password(encoder.encode("admin"))
-			.roles("ADMIN")
-			.and()
-			.withUser("dentista")
-			.password(encoder.encode("dentista"))
-			.roles("DENTISTA")
-			.and()
-			.withUser("paciente")
-			.password(encoder.encode("paciente"))
-			.roles("PACIENTE");
->>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 	}
 
 }
