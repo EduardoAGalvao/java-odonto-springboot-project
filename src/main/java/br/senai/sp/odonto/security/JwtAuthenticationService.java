@@ -6,10 +6,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+=======
+import org.springframework.security.core.Authentication;
+>>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -37,12 +41,17 @@ public class JwtAuthenticationService {
 	//Tempo para expirar o token, no caso está sendo passado 1 dia em formato de milissegundos
 	private static final long EXPIRATION_TIME = 86400000;
 	
+<<<<<<< HEAD
 	//Importando o UserDetailServiceImpl, que busca o usuário no banco e suas informações
 	@Autowired
 	private UserDetailServiceImpl userDetailService;
 	
 	//Método para criação de token recebendo o nome do usuário e suas permissões
 	public String createToken(String username, List<String> roles) {
+=======
+	//Método para criação de token recebendo o nome do usuário e suas permissões
+	private String createToken(String username, List<String> roles) {
+>>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 		
 		//Criação do payload para geração do token
 		//iniciando setando o valor do parâmetro "sub" com o username
@@ -67,6 +76,7 @@ public class JwtAuthenticationService {
 		
 	}
 	
+<<<<<<< HEAD
 	//Método para autenticar de acordo com a requisição
 	public Authentication getAuthentication(HttpServletRequest req) {
 		
@@ -111,6 +121,24 @@ public class JwtAuthenticationService {
 	}
 	
 	//Método que separa o token do restante da requisição
+=======
+	public Authentication getAuthentication(HttpServletRequest req) {
+		
+		String token = resolveToken(req);
+		
+		if(token != null) {
+			Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+			
+			if(claims.getBody().getExpiration().before(new Date())) {
+				return false;
+			}
+		}
+		
+		return true;
+		
+	}
+	
+>>>>>>> be8a69bcbd6fa704a6662d866718848f4761fc6c
 	public String resolveToken(HttpServletRequest req) {
 		
 		//Coletando o parâmetro de Authorization 
