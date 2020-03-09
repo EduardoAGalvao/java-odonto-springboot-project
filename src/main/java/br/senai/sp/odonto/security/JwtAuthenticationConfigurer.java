@@ -13,9 +13,11 @@ public class JwtAuthenticationConfigurer extends SecurityConfigurerAdapter<Defau
 		this.jwtAuthenticationService = jwtAuthenticationService;
 	}
 	
+	//Método que configura como as requisições serão tratadas, no caso passando pelo filtro
 	@Override
 	public void configure(HttpSecurity builder) throws Exception {
 		
+		//Utiliza o filtro para interceptar a requisição recebida usando um objeto com os dados de autenticação
 		JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(jwtAuthenticationService);
 		
 		builder.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

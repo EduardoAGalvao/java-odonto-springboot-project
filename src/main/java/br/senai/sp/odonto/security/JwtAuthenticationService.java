@@ -54,8 +54,12 @@ public class JwtAuthenticationService {
 		//Coletando o tempo atual
 		Date now = new Date();
 		
+		//A validade é determinada incluindo a hora atual + o tempo para expirar
 		Date validity = new Date(now.getTime() + EXPIRATION_TIME);
 		
+		//O token é criado inserindo os dados de payload, o momento de criação,
+		//o momento de expiração e uma chave criptográfica com alguma base
+		//(HS512) no caso e a chave para criptografia
 		String token = Jwts.builder()
 						.setClaims(claims)
 						.setIssuedAt(now)
@@ -78,6 +82,8 @@ public class JwtAuthenticationService {
 			
 			//Atualmente o username está alocado dentro do parâmetro sub
 			//referente a subject, por isso está sendo coletado através dele
+			//Para acesso a esse dado, é necessário passar a chave para descriptografar,
+			//o token para ter acesso aos dados e solicitar os mesmos
 			String username = Jwts
 					.parser()
 					.setSigningKey(SECRET_KEY)
@@ -85,6 +91,7 @@ public class JwtAuthenticationService {
 					.getBody()
 					.getSubject();
 			
+			//Se o username estiver preenchido, retorna os dados de detalhes através do nome
 			if(username != null) {
 				UserDetails userDetails = userDetailService.loadUserByUsername(username);
 				return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

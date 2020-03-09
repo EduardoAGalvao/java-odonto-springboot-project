@@ -81,13 +81,16 @@ public class DentistaResource {
 		Optional dentistaConsultado = dentistaRepository.findById(codigo);
 		Dentista dentista = (Dentista) dentistaConsultado.get();
 		
+		//Ao invés de retornar o objeto dentista completo, a partir dele são setados
+		//os valores para retornar o dentista do DTO
+		//que já possui os valores permitidos para retorno
 		DentistaDTO dentistaDTO = new DentistaDTO();
-		
 		dentistaDTO.setEmail(dentista.getEmail());
 		dentistaDTO.setNome(dentista.getNome());
 		dentistaDTO.setTelefone(dentista.getTelefone());
 		
-		return dentistaConsultado.isPresent() ? ResponseEntity.ok(dentistaConsultado.get()) : ResponseEntity.notFound().build();
+		//Retorna o dentistaDTO se houver o objeto pesquisado, senão retorna o erro de "não encontrado"
+		return dentistaConsultado.isPresent() ? ResponseEntity.ok(dentistaDTO) : ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping("/pacientes")

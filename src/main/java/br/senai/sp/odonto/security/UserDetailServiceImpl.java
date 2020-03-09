@@ -23,6 +23,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		//No caso, é dito o caminho completo da classe 
 		//pois abaixo dela será utilizada uma classe do UserDetails que tem o mesmo nome
 		//e aí precisará sanar a ambiguidade
+		//Aqui ele recebe o objeto procurado a partir do nome e devolve como um objeto UserDetails
 		br.senai.sp.odonto.model.User user = userRepository.findByUsername(username);
 		UserDetails userDetails = new User(username, user.getPassword(), AuthorityUtils.createAuthorityList(user.getRole()));
 		

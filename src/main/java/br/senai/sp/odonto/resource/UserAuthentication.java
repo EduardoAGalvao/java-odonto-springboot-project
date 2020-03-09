@@ -27,7 +27,7 @@ public class UserAuthentication {
 	@Autowired
 	private UserRepository userRepository;
 	
-	//Faz a criação do token
+	//Faz a criação do token pelo método createToken
 	@Autowired
 	private JwtAuthenticationService jwtService;
 	
@@ -40,25 +40,30 @@ public class UserAuthentication {
 	@PostMapping("/auth/login")
 	public ResponseEntity<Map<Object, Object>> signIn(@RequestBody UserAccountCredential credential) {
 		
+		//Monta as credenciais do usuário pelo que é enviado no body da requisição
 		UsernamePasswordAuthenticationToken userCredential = new UsernamePasswordAuthenticationToken(credential.getUsername(), credential.getPassword());
 		
+		//realiza a checagem da autenticação com os dados
 		authenticationManager.authenticate(userCredential);
 		
+		//Definindo variável de cargos/papéis
 		List<String> roles = new ArrayList<String>();
 		
 		//Bloco para adquirir as funções do usuário
+		//Localiza o usuário no banco através do nome e associa as funções do mesmo
 		User userLogin = new User();
 		userLogin = userRepository.findByUsername(credential.getUsername());
 		roles.add(userLogin.getRole());
 		
+		//Realiza a criação do token utilzando o nome e as funções que serão atribuidas como dados de payload
 		String token = jwtService.createToken(credential.getUsername(), roles);
 		
 		//Método Map -> registra valores no conjunto chave (key) e valor (value)
 		Map<Object, Object> jsonResponse = new HashMap<>();
-		
 		jsonResponse.put("username", credential.getUsername());
 		jsonResponse.put("token", token);
 		
+		//Faz o retorno no formato chave/valor das informações relevantes
 		return ResponseEntity.ok(jsonResponse);
 		
 	}

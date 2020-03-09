@@ -46,13 +46,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			//Não será armazenada sessão/estado de acesso do usuário
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
+			//A partir daqui há a definição do que acontecerá nas requisições
+			//sob determinados endereços podem ser públicas com o permitAll()
+			//ou ter cargos determinados para autorização de acesso
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/odonto/auth/login").permitAll()
 			.antMatchers(HttpMethod.GET, "/odonto/dentistas/**").hasRole("USER")
 			.antMatchers(HttpMethod.POST, "/odonto/dentistas/**").hasRole("ADMIN")
 			.antMatchers(HttpMethod.PUT, "/odonto/dentistas/**").hasRole("ADMIN")
 			.antMatchers(HttpMethod.DELETE, "/odonto/dentistas/**").hasRole("ADMIN")
+			//Qualquer request deve exigir uma autenticação pelo token
 			.anyRequest().authenticated()
+			//O configurador recebe a requisição recebida e faz todos os tratamentos necessários
 			.and().apply(new JwtAuthenticationConfigurer(jwtAuthenticationService));
 	}
 	

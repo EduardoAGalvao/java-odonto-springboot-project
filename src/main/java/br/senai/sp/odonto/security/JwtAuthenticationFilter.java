@@ -20,14 +20,19 @@ public class JwtAuthenticationFilter extends GenericFilterBean{
 		this.jwtAuthenticationService = jwtAuthenticationService;
 	}
 
+	//A ideia do filtro é interceptar as requisições
+	//deixando prosseguir se estiver tudo bem
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		
+		//Recebe o retorno de uma tentativa de autenticação enviando o request
 		Authentication authentication = jwtAuthenticationService.getAuthentication( (HttpServletRequest) request);
 		
+		//Seta a autenticação retornada
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
+		//A corrente de dados usa um filtro pelo request e tem uma resposta caso esteja tudo ok
 		chain.doFilter(request, response);
 		
 	}
