@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 //scanBasePackages = {"com.vz.spring.items"} -> escaneia os pacotes em busca de algum que talvez não tenha anotações necessárias para a execução
 //testado em 06/03
-@SpringBootApplication(scanBasePackages = {"com.vz.spring.items"})
+@SpringBootApplication
 public class OdontoApplication {
 
 	public static void main(String[] args) {

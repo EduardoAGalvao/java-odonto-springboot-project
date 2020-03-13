@@ -40,7 +40,8 @@ public class DentistaResource {
 	//Método para listar todos os dentistas
 	//@GetMapping -> Anotação que define o que será executado quando a requisição for GET, também podem ser discriminados diferentes métodos para diferentes caminhos
 	@GetMapping("/dentistas")
-	@Secured({"ROLE_DENTISTA","ROLE_PACIENTE"})
+	//Linha da anotação @Secured comentada pois agora os cargos estão sendo atribuidos na SecurityConfig
+	//@Secured({"ROLE_DENTISTA","ROLE_PACIENTE"})
 	public List<Dentista> getDentistas(String nome){	
 		return dentistaRepository.findAll();
 	}
@@ -51,7 +52,8 @@ public class DentistaResource {
 	}
 	
 	@GetMapping("/dentistas/cro/{cro}")
-	@Secured({"ROLE_DENTISTA","ROLE_PACIENTE"})
+	//Linha da anotação @Secured comentada pois agora os cargos estão sendo atribuidos na SecurityConfig
+	//@Secured({"ROLE_DENTISTA","ROLE_PACIENTE"})
 	public List<Dentista> getDentistasByCro(@PathVariable String cro){
 		return dentistaRepository.findByCro(cro);
 	}
@@ -104,7 +106,8 @@ public class DentistaResource {
 	//@Valid -> checa se ele está validado com os parâmetros definidos na classe, caso contrário retorna uma bad request
 	//@Secured -> Define o nome do "tipo de perfil" que poderá ter acesso a esse tipo de requisição. O padrão do protocolo é usar ROLE_nomeDinamico
 	@PostMapping("/dentistas")
-	@Secured("ROLE_ADMIN")
+	//Linha da anotação @Secured comentada pois agora os cargos estão sendo atribuidos na SecurityConfig
+	//@Secured("ROLE_ADMIN")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Dentista gravar(@Valid @RequestBody Dentista dentista) {
 		Dentista novoDentista = dentistaRepository.save(dentista);

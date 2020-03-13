@@ -22,7 +22,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	private JwtAuthenticationService jwtAuthenticationService;
+
+	@Autowired
 	private UserDetailServiceImpl userDetailServiceImpl;
+
+	@Bean
+	@Override
+	public AuthenticationManager authenticationManagerBean() throws Exception {
+		return super.authenticationManagerBean();
+	}
 
 	//Método utilizado para a configuração da segurança na requisição HTTP
 	//Reescrevendo o método original, retirando o formulário para autenticação que aparece no HTTP
@@ -69,6 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
+		//Criação de objeto para utilizar a criptografia
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		//Refatorado em 06/03 - agora realizando autenticação pelo JWT
@@ -91,6 +100,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 //			.password(encoder.encode("paciente"))
 //			.roles("PACIENTE");
 		
+		//O objeto do AuthenticationManagerBuilder coleta o usuario pelo userDetailsService
+		//encontra sua senha e criptografa
+		//ele irá comparar com a senha do banco (somente parte dessa criptografia, pois ela é formada inclusive com o tempo)
 		auth.userDetailsService(userDetailServiceImpl).passwordEncoder(encoder);
 	}
 
