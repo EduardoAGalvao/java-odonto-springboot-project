@@ -1,8 +1,10 @@
 package br.senai.sp.odonto.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -59,10 +61,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			//ou ter cargos determinados para autorização de acesso
 			.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/odonto/auth/login").permitAll()
-			.antMatchers(HttpMethod.GET, "/odonto/dentistas/**").hasRole("USER")
-			.antMatchers(HttpMethod.POST, "/odonto/dentistas/**").hasRole("ADMIN")
+			.antMatchers(HttpMethod.GET, "/odonto/dentistas").hasRole("USER")
+			.antMatchers(HttpMethod.POST, "/odonto/dentistas").hasRole("ADMIN")
 			.antMatchers(HttpMethod.PUT, "/odonto/dentistas/**").hasRole("ADMIN")
 			.antMatchers(HttpMethod.DELETE, "/odonto/dentistas/**").hasRole("ADMIN")
+			.antMatchers(HttpMethod.POST, "/odonto/dentistas/foto").hasAnyRole("USER", "ADMIN")
 			//Qualquer request deve exigir uma autenticação pelo token
 			.anyRequest().authenticated()
 			//O configurador recebe a requisição recebida e faz todos os tratamentos necessários

@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.senai.sp.odonto.dto.DentistaDTO;
 import br.senai.sp.odonto.model.Dentista;
 import br.senai.sp.odonto.repository.DentistaRepository;
+import br.senai.sp.odonto.upload.FirebaseStorageService;
+import br.senai.sp.odonto.upload.UploadInput;
 
 //@RestController -> Anotação que informa ao Java que essa classe funcionará como o Controller e oferecá ao usuário seus recursos
 //@RequestMapping -> Anotação que mapeia o endereço na URL que chamará essa classe
@@ -36,6 +38,10 @@ public class DentistaResource {
 	//@Autowired -> Anotação que faz a instância de um objeto caso não tenha sido feita ou recupera a mesma
 	@Autowired
 	private DentistaRepository dentistaRepository;
+	
+	//Adicionando objeto que relaciona o serviço de upload
+	@Autowired
+	private FirebaseStorageService uploadFotoService;
 	
 	//Método para listar todos os dentistas
 	//@GetMapping -> Anotação que define o que será executado quando a requisição for GET, também podem ser discriminados diferentes métodos para diferentes caminhos
