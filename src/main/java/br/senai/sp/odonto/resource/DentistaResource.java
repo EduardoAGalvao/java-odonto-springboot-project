@@ -140,4 +140,12 @@ public class DentistaResource {
 		return ResponseEntity.ok(dentistaAtualizado);
 		
 	}
+
+	//Mapeando recurso para upload de foto
+	@PostMapping("/dentistas/foto")
+	public ResponseEntity uploadFoto(@RequestBody UploadInput fotoUpload) {
+		String url = uploadFotoService.upload(fotoUpload);
+		
+		return ResponseEntity.ok(url);
+	}
 }

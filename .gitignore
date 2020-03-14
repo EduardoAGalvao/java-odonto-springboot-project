@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### FIREBASE KEY
+.src/main/java/br/senai/sp/odonto/resources/firebase-account-key.json

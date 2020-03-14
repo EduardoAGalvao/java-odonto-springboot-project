@@ -41,6 +41,13 @@
 			<version>0.9.0</version>
 		</dependency>
 
+		<!-- Firebase -->
+		<dependency>
+			<groupId>com.google.firebase</groupId>
+			<artifactId>firebase-admin</artifactId>
+			<version>6.8.0</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -64,6 +71,14 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
+
+	<!-- Incluindo repositório do google com o Maven -->
+	<repositories>
+		<repository>
+			<id>spring.repo</id>
+			<url>https://maven.google.com</url>
+		</repository>
+	</repositories>
 
 	<build>
 		<plugins>
